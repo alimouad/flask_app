@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title  %}Home Page{% endblock  %}
+{% block content %}
+    <main class="container my-4">
+        <p>Ce site a été développé par la société <a target="_blank" href="https://www.linkedin.com/in/mouad-el-alli/">MOUAD
+                EL ALLI</a>, spécialisée dans les études et l'ingénierie
+            topographique.
+            Son objectif est d'automatiser la génération des images nécessaires au dépôt des dossiers techniques au
+            cadastre.</p>
+        <div class="form_container">
+            <h4>Générer les PDFs des images</h4>
+            <form method="post" class="py-5" enctype="multipart/form-data"
+                action="{{ url_for('routes.handle_image') }}">
+              
+                <div class="form-group row py-2">
+                    <label for="cds" class="col-sm-2 col-form-label">Cadastre :</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="cds" id="cadastre" required maxlength="100">
+                    </div>
+                </div>
+                <div class="form-group row py-2">
+                    <label for="igt" class="col-sm-2 col-form-label">Société / IGT :</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="igt" id="igt" required maxlength="100">
+                    </div>
+                </div>
+                <div class="form-group row py-2">
+                    <label for="opt" class="col-sm-2 col-form-label">Nature du DT :</label>
+                    <select class="custom-select mr-sm-2 col-sm-7" name="opt" id="nature-travail">
+                        <option value="mec">Mec</option>
+                        <option value="mec-copro">Mec-copro</option>
+
+                    </select>
+                </div>
+                <div class="form-group row py-2">
+                    <label for="tf" class="col-sm-2 col-form-label">Titre Foncier :</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="tf" id="inputPassword" required maxlength="100">
+                    </div>
+                </div>
+                <div class="form-group row py-2">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Propriété dite :</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="prn" id="inputPassword" required maxlength="100">
+                    </div>
+                </div>
+                <div class=" form-group row py-2 ">
+                    <label class="col-sm-2 col-form-label" for="image">Choisir les images :</label>
+                    <div class="col sm-7 py-2">
+                        <input type="file" class="custom-file-input" name="image" accept="image/*" id="validatedCustomFile"
+                            required>
+                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary my-4">Genere Le Pdf</button>
+            </form>
+        </div>
+    </main>
+{% endblock  %}

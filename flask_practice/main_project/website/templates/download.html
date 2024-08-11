@@ -1,0 +1,118 @@
+
+    {% extends "base.html" %}
+    {% block title %}Download Page{% endblock %}
+    {% block content %}
+
+     <div class="container my-4">
+         <!-- <div id="status-message" class="alert" style="display: none;"></div>
+
+         Loading Spinner -->
+         <!-- <div id="loading-spinner" class="d-flex justify-content-center" style="display: none;">
+             <div class="spinner-border" role="status">
+                 <span class="sr-only">Loading...</span>
+             </div>
+         </div> -->
+
+         <!-- Main Content Box -->
+         <div class="container my-4">
+             <div class="box">
+                 <h4>PDFs générés avec succès. Le fichier ZIP est prêt.</h4>
+                 <p>Votre fichier ZIP est prêt.</p>
+
+                 <div class="d-flex justify-content-around py-3">
+
+                     <!-- Back to form button -->
+                     <button type="button" class="btn btn-primary">
+                         <a href="{{ url_for('routes.home_Page') }}" class="text-white">Go back to the form</a>
+                     </button>
+                     <!-- Download button with dynamic filename -->
+                     <button type="button" id="download-btn" class="btn btn-secondary">
+                         <a href="{{ url_for('routes.download_pdf')}}" target="_blank" class="text-white">Download</a>
+                     </button>
+                 </div>
+         </div>
+
+         <!-- Download Complete Message -->
+         <!-- <div id="download-complete" class="text-center" style="display: none;">
+             <h5>Le téléchargement est terminé.</h5>
+             <button id="back-btn" class="btn btn-primary" style="display: none;">
+                 <a href="{{ url_for('routes.home_Page') }}" class="text-white">Go back to the form</a>
+             </button>
+         </div> -->
+     </div>
+
+   
+    {% endblock %}
+    
+<!-- {% block scripts %}
+<script>
+    $(document).ready(function () {
+        let downloadUrl = '';
+
+        // Get CSRF token from meta tag
+        const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        if (!csrfToken) {
+            console.error('CSRF token is not available.');
+            return;
+        }
+
+        // Function to generate PDFs
+        $.ajax({
+            url: '/download/generate',
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken // Use the token in the AJAX request headers
+            },
+            success: function (response) {
+                if (response.success) {
+                    $('#status-message').text('PDFs générés avec succès. Le fichier ZIP est prêt.')
+                        .removeClass('text-danger')
+                        .addClass('alert-success')
+                        .show();
+                    $('#loading-spinner').hide();
+                    $('#button-container').show();
+                    downloadUrl = '/download/' + response.zip_filename; // Update the download URL
+                    $('#download-btn a').attr('href', downloadUrl); // Update download button link
+                } else {
+                    showError(
+                        "Une erreur s'est produite lors de la génération des PDFs. Veuillez réessayer."
+                        );
+                }
+            },
+            error: function () {
+                showError("Une erreur de communication s'est produite. Veuillez réessayer.");
+            }
+        });
+
+        // Function to handle the download button click
+        $('#download-btn').on('click', function (e) {
+            e.preventDefault();
+            if (downloadUrl) {
+                window.open(downloadUrl, '_blank'); // Open the download URL in a new tab
+                $(this).prop('disabled', true).text('Téléchargement en cours...');
+                setTimeout(function () {
+                    $('#download-complete').show();
+                    $('#back-btn').show();
+                    $.post('/clear-session/', {
+                        csrf_token: csrfToken
+                    }); // Clear session data with CSRF token
+                }, 5000); // Wait 5 seconds to simulate download completion
+            }
+        });
+
+        // Function to show error messages
+        function showError(message) {
+            $('#status-message').text(message)
+                .removeClass('alert-success')
+                .addClass('alert-danger')
+                .show();
+            $('#loading-spinner').hide();
+            setTimeout(function () {
+                window.location.href = '/'; // Redirect to home page after showing error
+            }, 3000);
+        }
+    });
+</script>
+{% endblock %}
+     -->
